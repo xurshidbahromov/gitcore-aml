@@ -1,0 +1,24 @@
+# Datasets & Zip archives
+dataset.zip
+*.zip
+*.parquet
+data/fintech_data/
+__MACOSX/
+
+# Virtual Environment & Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+catboost_info/
+.venv/
+venv/
+ENV/
+
+# Node & Build artifacts
+node_modules/
+dist/
+.vite-temp/
+
+# OS specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased transition-colors duration-300 font-sans;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+  }
+
+  /* ─── Light Theme ─── */
+  :root {
+    --bg-body: #f8fafc;
+    --bg-surface: rgba(255, 255, 255, 0.85);
+    --bg-surface-solid: #ffffff;
+    --bg-surface-hover: rgba(248, 250, 252, 0.9);
+    --bg-elevated: rgba(255, 255, 255, 0.7);
+    --border-primary: #f1f2f4;
+    --border-subtle: rgba(241, 242, 244, 1);
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+    --shadow-card-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  /* ─── Dark Theme ─── */
+  .dark {
+    --bg-body: #0b0f19;
+    --bg-surface: rgba(15, 22, 36, 0.6);
+    --bg-surface-solid: #0b0f19;
+    --bg-surface-hover: rgba(30, 41, 59, 0.35);
+    --bg-elevated: rgba(30, 41, 59, 0.4);
+    --border-primary: rgba(255, 255, 255, 0.06);
+    --border-subtle: rgba(255, 255, 255, 0.03);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.5);
+    --shadow-card-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.6);
+  }
+
+  .lucide {
+    stroke-width: 1.7px !important;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+/* Glass Card Helper */
+.glass-card {
+  @apply backdrop-blur-2xl rounded-[20px] transition-all duration-300;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
