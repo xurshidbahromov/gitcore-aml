@@ -731,29 +731,119 @@ export const caseStudiesData = [
   {
     "id": "SG_000187",
     "probability": 99.9,
-    "classification": "High Priority Escalation",
+    "classification": "Kritik Eskalatsiya (Tranzit Mule Kompaniya)",
     "status": "ESCALATE",
-    "reason": "Abnormal multi-million cash withdrawal within 3 hours of incoming wire transfer; sudden 7-day velocity acceleration; smurfing burst index in 99th percentile.",
+    "reason": "Yirik bank o'tkazmasi tushishi bilan 3 soat ichida 87.4% mablag'ni naqdlashtirish; 7 kunlik aylanma sur'ati keskin tezlashgan; Tranzit (Pass-through) ko'rsatkichi 0.94 (FATF/Markaziy Bank 2515-sonli Nizom 14-moddasi).",
     "riskColor": "red",
     "indicators": [
       {
-        "name": "Cash Outflow Ratio",
+        "name": "Naqd Chiqim Nisbati (Cash Ratio)",
         "value": "87.4%",
         "severity": "critical"
       },
       {
-        "name": "Burst Transactions (<15m)",
-        "value": "14 bursts",
+        "name": "15 Daqiqalik Klaster (Bursts)",
+        "value": "14 ta operatsiya",
         "severity": "high"
       },
       {
-        "name": "Trigger Outflow Deviation",
-        "value": "-3.84 std",
+        "name": "Chiqim Z-Score Oqishi",
+        "value": "-3.84 sigma",
         "severity": "critical"
       },
       {
-        "name": "Account Pass-Through Mule Index",
-        "value": "0.94",
+        "name": "Tranzit Hisob (Mule) Indeksi",
+        "value": "0.94 (Kritik)",
+        "severity": "high"
+      }
+    ]
+  },
+  {
+    "id": "SG_001429",
+    "probability": 94.2,
+    "classification": "Kritik Eskalatsiya (Structuring & Smurfing)",
+    "status": "ESCALATE",
+    "reason": "100M so'mlik majburiy nazorat chegarasidan qochish maqsadida 45 daqiqa ichida bir nechta bankomatlardan 11 ta ketma-ket 9.5M so'mlik naqd pul yechish aniqlandi (ZRU-660 16-moddasi).",
+    "riskColor": "red",
+    "indicators": [
+      {
+        "name": "Structuring / Smurfing Tezligi",
+        "value": "11 ta / 45 daqiqa",
+        "severity": "critical"
+      },
+      {
+        "name": "Chegara Osti O'rtacha Miqdor",
+        "value": "9,500,000 UZS",
+        "severity": "critical"
+      },
+      {
+        "name": "Kassa Qoldig'i O'zgarishi",
+        "value": "-98.2%",
+        "severity": "high"
+      },
+      {
+        "name": "Tranzaksiya Kanali",
+        "value": "Naqd / ATM Klaster",
+        "severity": "high"
+      }
+    ]
+  },
+  {
+    "id": "SG_003810",
+    "probability": 86.5,
+    "classification": "Yuqori Xavf (Tungi P2P Kripto Funnel)",
+    "status": "ESCALATE",
+    "reason": "Tungi soat 02:30 va 04:15 oralig'ida 18 ta turli xil jismoniy shaxs kartalariga tezkor P2P o'tkazmalari amalga oshirilgan; g'ayritabiiy vaqt anomaliyasi va noaniq iqtisodiy maqsad.",
+    "riskColor": "amber",
+    "indicators": [
+      {
+        "name": "Tungi Vaqt Anomaliyasi (Night Ratio)",
+        "value": "91.8% tungi oqim",
+        "severity": "critical"
+      },
+      {
+        "name": "Turli Kontragentlar Soni",
+        "value": "18 ta karta / 2 soat",
+        "severity": "high"
+      },
+      {
+        "name": "Tezlik Sur'ati (Velocity Jump)",
+        "value": "4.8x me'yordan ortiq",
+        "severity": "high"
+      },
+      {
+        "name": "Tranzaksiya Turi",
+        "value": "Karta (P2P Split)",
+        "severity": "medium"
+      }
+    ]
+  },
+  {
+    "id": "SG_004921",
+    "probability": 91.0,
+    "classification": "Yuqori Xavf (Xalqaro Tranzit / Offshore)",
+    "status": "ESCALATE",
+    "reason": "Ichki tovar aylanmasi yoki xizmat ko'rsatish tarixi bo'lmagan yangi yuridik shaxs hisobiga chet eldan tushgan mablag'ning o'sha kunning o'zida noma'lum yurisdiksiyaga o'tkazilishi.",
+    "riskColor": "red",
+    "indicators": [
+      {
+        "name": "Xalqaro O'tkazma Nisbati",
+        "value": "78.5% jami aylanmadan",
+        "severity": "critical"
+      },
+      {
+        "name": "Hisob Faoliyat Davomiyligi",
+        "value": "14 kun (Yangi hisob)",
+        "severity": "high"
+      },
+      {
+        "name": "Soliq / Maosh To'lovlari Mavjudligi",
+        "value": "Mavjud emas (0%)",
+        "severity": "critical"
+      },
+      {
+        "name": "Pass-Through Ko'rsatkichi",
+        "value": "0.98 (Tranzit)",
         "severity": "high"
       }
     ]
@@ -761,32 +851,110 @@ export const caseStudiesData = [
   {
     "id": "SG_000010",
     "probability": 9.5,
-    "classification": "Routine Dismissed Alert",
+    "classification": "Asossiz Signal (Muntazam Chakana Savdo)",
     "status": "DISMISS",
-    "reason": "Regular card retail purchasing activity over 180-day lifespan; stable balance fluctuation; zero cash withdrawals or cross-border wires in final 30 days.",
+    "reason": "180 kunlik barqaror faoliyat; chakana savdo terminalidan muntazam tushumlar va yetkazib beruvchilarga rejali to'lovlar; naqdlashtirish va tungi operatsiyalar yo'q.",
     "riskColor": "emerald",
     "indicators": [
       {
-        "name": "Cash Outflow Ratio",
-        "value": "0.0%",
+        "name": "Naqd Chiqim Nisbati",
+        "value": "0.0% (Faqat terminal)",
         "severity": "low"
       },
       {
-        "name": "Burst Transactions (<15m)",
-        "value": "0 bursts",
+        "name": "15 Daqiqalik Klaster",
+        "value": "0 ta (Normal oqim)",
         "severity": "low"
       },
       {
-        "name": "Trigger Outflow Deviation",
-        "value": "+0.12 std",
+        "name": "Chiqim Z-Score Oqishi",
+        "value": "+0.12 sigma (Barqaror)",
         "severity": "low"
       },
       {
-        "name": "Account Pass-Through Mule Index",
-        "value": "0.11",
+        "name": "Tranzit Hisob Indeksi",
+        "value": "0.11 (Haqiqiy biznes)",
         "severity": "low"
       }
     ]
+  },
+  {
+    "id": "SG_002155",
+    "probability": 4.2,
+    "classification": "Asossiz Signal (Rejali Oylik Maosh)",
+    "status": "DISMISS",
+    "reason": "Har oyning 5-sanasida xodimlarning maosh kartalariga rejali o'tkazmalar; avvalgi oylar bilan 99% korrelyatsiya va to'liq soliq hisob-kitoblariga mos.",
+    "riskColor": "emerald",
+    "indicators": [
+      {
+        "name": "Maosh To'lovi Korrelyatsiyasi",
+        "value": "0.99 (Rejali oylik)",
+        "severity": "low"
+      },
+      {
+        "name": "Chiqim Davriyligi",
+        "value": "30 kunlik sikl",
+        "severity": "low"
+      },
+      {
+        "name": "Yangi Kontragentlar",
+        "value": "0 ta (Doimiy xodimlar)",
+        "severity": "low"
+      },
+      {
+        "name": "Hisob Balansi Saqlanishi",
+        "value": "Ijobiy qoldiq",
+        "severity": "low"
+      }
+    ]
+  }
+];
+
+export const centralBankRulesData = [
+  {
+    id: "MB-2515-01",
+    name: "Katta hajmdagi naqdlashtirish (Cash-out Spike)",
+    threshold: ">500 BHM (206,000,000 UZS) yoki z-score > 2.0",
+    legalBasis: "O'zR Qonuni ZRU-660 16-moddasi, MB 2515-Nizomi",
+    mlFeatureMapping: "amount_min, naqd_sum, naqd_turnover_ratio",
+    riskWeight: "Juda Yuqori (Kritik)",
+    penaltyRisk: "Bank va mansabdor shaxsga 50 mln - 200 mln UZS jarima"
+  },
+  {
+    id: "MB-2515-02",
+    name: "Smurfing / Structuring (Ketma-ket bo'lib yechish)",
+    threshold: "15 daqiqa ichida >= 3 ta operatsiya yoki 24h ichida 5+ chegara osti amallar",
+    legalBasis: "MB 2515-sonli Nizom 21-bandi (G'ayritabiiy amallar)",
+    mlFeatureMapping: "burst_15m_count, max_15m_burst_count, velocity_1d",
+    riskWeight: "Kritik (Jinoiy xavf)",
+    penaltyRisk: "Hisobni to'xtatish va Bosh Prokuraturaga ma'lumot jo'natish"
+  },
+  {
+    id: "MB-2515-03",
+    name: "Tranzit (Pass-Through Mule) Operatsiyasi",
+    threshold: "Mablag' tushgach 24 soat ichida 80%+ qismining chiqarilishi",
+    legalBasis: "FATF 10-Tavsiya va MB 2515-Nizom 14-bandi",
+    mlFeatureMapping: "pass_through_ratio, turnover_ratio_7d, chiqim_ratio_3d",
+    riskWeight: "Yuqori (Mule hisob)",
+    penaltyRisk: "Bank litsenziyasi bo'yicha ogohlantirish va hisobni muzlatish"
+  },
+  {
+    id: "MB-2515-04",
+    name: "Tungi Anomaliya & Noma'lum P2P Klaster",
+    threshold: "01:00-05:00 soatlaridagi amallar nisbati > 40%",
+    legalBasis: "Elektron to'lovlar xavfsizligi to'g'risidagi MB Nizomi",
+    mlFeatureMapping: "night_ratio, weekend_ratio, tx_count_night",
+    riskWeight: "O'rta-Yuqori",
+    penaltyRisk: "Avtomatik 2FA bloklash va qo'shimcha verifikatsiya talabi"
+  },
+  {
+    id: "MB-2515-05",
+    name: "Xalqaro O'tkazmalar & Noaniq Yurisdiksiyalar",
+    threshold: "Ichki operatsiyalari bo'lmagan hisobdan chet elga chiqim",
+    legalBasis: "Valyutani tartibga solish qonunchiligi va FATF qora ro'yxati",
+    mlFeatureMapping: "xalqaro_sum, xalqaro_ratio, chiqim_max",
+    riskWeight: "Kritik",
+    penaltyRisk: "Valyuta nazorati organlari tomonidan to'liq audit"
   }
 ];
 
@@ -800,3 +968,4 @@ export const summaryStats = {
   teamId: "98F12CFB",
   submissionFile: "team_98F12CFB.csv"
 };
+
