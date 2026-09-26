@@ -126,21 +126,36 @@ html {
   scrollbar-width: none;
 }
 
-/* Smooth Tab Entrance Physics (iNazorat Signature Fluid Reveal) */
+/* Deep Frosted Glass Blur Utilities with cross-browser WebKit support */
+.backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+
+.backdrop-blur-2xl {
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+}
+
+.backdrop-blur-3xl {
+  -webkit-backdrop-filter: blur(64px);
+  backdrop-filter: blur(64px);
+}
+
+/* Smooth Tab Entrance Physics (iNazorat Signature Fluid Reveal) - No Compositor Isolation */
 @keyframes fadeInScale {
   0% {
     opacity: 0;
-    transform: scale(0.988) translateY(6px);
+    transform: translateY(4px);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: none;
   }
 }
 
 .animate-fadeIn {
-  animation: fadeInScale 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: opacity, transform;
+  animation: fadeInScale 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* iNazorat Signature Glass Card */

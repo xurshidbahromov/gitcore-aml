@@ -68,7 +68,6 @@ import {
   CountUp,
   ShinyText,
   DecryptedText,
-  Squares,
   AnimatedTabs,
   type TabItem,
 } from './components/reactbits';
@@ -207,25 +206,14 @@ export default function App() {
     <div className="min-h-screen bg-slate-100 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300 relative overflow-x-clip selection:bg-emerald-500 selection:text-white">
       {/* Background Decorative Blur Gradients - EXACTLY matching iNazorat DashboardLayout */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50/50 to-emerald-50/10 dark:from-[#0b0f19] dark:via-[#0d1323] dark:to-[#0f172a]/20 transition-colors duration-300">
-        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-emerald-200/20 dark:bg-emerald-500/4 blur-[140px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/15 dark:bg-emerald-400/4 blur-[150px]" />
-      </div>
-
-      {/* React Bits Squares Interactive Background - delicate, non-intrusive */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30 dark:opacity-15">
-        <Squares
-          direction="diagonal"
-          speed={0.16}
-          borderColor={isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(32, 201, 151, 0.08)"}
-          squareSize={42}
-          hoverFillColor="rgba(32, 201, 151, 0.12)"
-        />
+        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-emerald-200/5 dark:bg-emerald-500/4 blur-[140px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/5 dark:bg-emerald-400/4 blur-[150px]" />
       </div>
 
       {/* Main Sticky Top Header Area (Top Banner + Navigation Cockpit) */}
       <header className="sticky top-0 z-40 transition-all shadow-sm">
         {/* Top Banner - iNazorat Signature Frosted Glass Ribbon */}
-        <div className="bg-white/70 dark:bg-[#0b0f19]/70 backdrop-blur-xl border-b border-[#f1f2f4] dark:border-white/5 px-4 sm:px-6 py-1.5 flex items-center justify-between text-xs transition-colors duration-300">
+        <div className="bg-white/90 dark:bg-[#0b0f19]/90 backdrop-blur-xl border-b border-[#f1f2f4] dark:border-white/5 px-4 sm:px-6 py-1.5 flex items-center justify-between text-xs transition-colors duration-300">
           <div className="flex items-center gap-2.5">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#20c997] opacity-75"></span>
@@ -254,7 +242,7 @@ export default function App() {
         </div>
 
         {/* Main Glass Cockpit Header (iNazorat Signature Navigation) */}
-        <div className="bg-white/80 dark:bg-[#0b0f19]/80 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/5 transition-all">
+        <div className="bg-white/90 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/5 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 gap-3">
             
@@ -349,7 +337,7 @@ export default function App() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <SpotlightCard
                 spotlightColor="rgba(32, 201, 151, 0.16)"
-                className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/40 p-5 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Jami Signallar</span>
@@ -371,7 +359,7 @@ export default function App() {
 
               <SpotlightCard
                 spotlightColor="rgba(244, 63, 94, 0.16)"
-                className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-rose-500/25 hover:border-rose-500/40 p-5 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">Tarixiy Eskalatsiya</span>
@@ -391,7 +379,7 @@ export default function App() {
 
               <SpotlightCard
                 spotlightColor="rgba(32, 201, 151, 0.16)"
-                className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/40 p-5 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">AML Xususiyatlari</span>
@@ -411,7 +399,7 @@ export default function App() {
 
               <SpotlightCard
                 spotlightColor="rgba(32, 201, 151, 0.22)"
-                className="bg-gradient-to-br from-emerald-500/10 via-white/60 to-teal-500/10 dark:from-emerald-500/10 dark:via-white/5 dark:to-teal-500/10 backdrop-blur-2xl rounded-[20px] border-2 border-emerald-500/30 dark:border-emerald-500/30 shadow-[0_4px_20px_-4px_rgba(32,201,151,0.15)] p-5 hover:shadow-[0_12px_36px_-4px_rgba(32,201,151,0.3)] transition-all duration-300"
+                className="bg-emerald-50/80 dark:bg-emerald-500/[0.07] backdrop-blur-xl rounded-[20px] border border-emerald-500/40 dark:border-emerald-500/30 p-5 hover:border-[#20c997]/60 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Final Ensemble AUC</span>
@@ -434,7 +422,7 @@ export default function App() {
 
             {/* Problem Statement & Architecture */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6 space-y-4">
+              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-4">
                 <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
                   <Zap className="w-5 h-5" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -477,7 +465,7 @@ export default function App() {
               </div>
 
               {/* Hackathon Deliverables Status Card */}
-              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6 flex flex-col justify-between">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
                     <CheckCircle2 className="w-5 h-5" />
@@ -540,7 +528,7 @@ export default function App() {
         {/* ---------------- SECTION 2: EDA & BEHAVIOR ---------------- */}
         {activeTab === 'eda' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -607,7 +595,7 @@ export default function App() {
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                   Oxirgi 24 Soatdagi Amaliyotlar Spayki
                 </h4>
@@ -646,7 +634,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                   To'lov Kanallari bo'yicha Xavf Taqsimoti
                 </h4>
@@ -682,7 +670,7 @@ export default function App() {
         {/* ---------------- SECTION 3: FEATURES ---------------- */}
         {activeTab === 'features' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -764,7 +752,7 @@ export default function App() {
         {activeTab === 'models' && (
           <div className="space-y-8 animate-fadeIn">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -813,7 +801,7 @@ export default function App() {
               </div>
 
               {/* Leaderboard */}
-              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6 flex flex-col justify-between">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6 flex flex-col justify-between">
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                     Arxitektura Taqqoslanishi
@@ -881,7 +869,7 @@ export default function App() {
         {activeTab === 'simulator' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Header Description Card */}
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-start gap-3.5">
                   <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-100 dark:border-transparent">
@@ -916,7 +904,7 @@ export default function App() {
             {/* Simulator Split Grid: Controls & Live AI Assessment */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Controls Column (7 Cols) */}
-              <div className="lg:col-span-7 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6 space-y-6">
+              <div className="lg:col-span-7 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white pb-3 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
                   <span>Tranzaksiya Parametrlari (Inputs)</span>
                   <span className="text-[11px] text-slate-400 font-normal">Slayderlarni surib ko'ring</span>
@@ -1136,7 +1124,7 @@ export default function App() {
               {/* Real-time AI Output Column (5 Cols) */}
               <SpotlightCard
                 spotlightColor={isDark ? "rgba(32, 201, 151, 0.12)" : "rgba(32, 201, 151, 0.15)"}
-                className="lg:col-span-5 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 flex flex-col justify-between space-y-5"
+                className="lg:col-span-5 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 p-6 flex flex-col justify-between space-y-5 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
@@ -1292,7 +1280,7 @@ export default function App() {
             </div>
 
             {/* ROI Cost-Benefit Optimizer Banner & Calculator */}
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6 space-y-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
@@ -1442,7 +1430,7 @@ export default function App() {
         {/* ---------------- SECTION: CENTRAL BANK REGULATORY RULES MATRIX ---------------- */}
         {activeTab === 'rules' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
@@ -1543,7 +1531,7 @@ export default function App() {
         {/* ---------------- SECTION 6: CASE STUDIES & STR EXPORT ---------------- */}
         {activeTab === 'cases' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -1673,7 +1661,7 @@ export default function App() {
         {/* ---------------- SECTION 7: SUBMISSION ---------------- */}
         {activeTab === 'submission' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_36px_-4px_rgba(0,0,0,0.6)] transition-all duration-300 p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-[20px] border border-[#f1f2f4] dark:border-white/[0.08] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <CheckCircle2 className="w-5 h-5" strokeWidth={1.8} />
@@ -1773,7 +1761,7 @@ export default function App() {
         {/* OFFICIAL CENTRAL BANK STR (SUSPICIOUS TRANSACTION REPORT) MODAL */}
         {activeStrCase && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xl overflow-y-auto animate-fadeIn">
-            <div className="bg-white/95 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-2 border-[#f1f2f4] dark:border-white/10 rounded-[24px] max-w-3xl w-full p-6 sm:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative space-y-6 my-8 print:border-none print:shadow-none print:p-0">
+            <div className="bg-white/85 dark:bg-[#0b0f19]/90 backdrop-blur-2xl border border-[#f1f2f4] dark:border-white/[0.08] rounded-[24px] max-w-3xl w-full p-6 sm:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative space-y-6 my-8 print:border-none print:shadow-none print:p-0">
               {/* Close Button (Hidden on Print) */}
               <button
                 onClick={() => setActiveStrCase(null)}
