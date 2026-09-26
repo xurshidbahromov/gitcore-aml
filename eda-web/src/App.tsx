@@ -209,10 +209,11 @@ export default function App() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/5 dark:bg-emerald-400/4 blur-[150px]" />
       </div>
 
-      {/* Unified Minimalist iNazorat-style Glass Header */}
-      <header className="sticky top-0 z-40 bg-white/75 dark:bg-[#0b0f19]/75 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/[0.06] transition-all">
+      {/* Unified Minimalist iNazorat-style Glass Header - Fully Responsive */}
+      <header className="sticky top-0 z-40 bg-white/80 dark:bg-[#0b0f19]/80 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/[0.06] transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 gap-3">
+          {/* Main Navigation Row */}
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
             
             {/* Left: iNazorat-style Wordmark Logo & Live AUC Status */}
             <div className="flex items-center gap-3 flex-shrink-0">
@@ -224,7 +225,7 @@ export default function App() {
               >
                 <div className="relative inline-flex items-center">
                   <span 
-                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[26px] sm:text-[32px] transition-colors"
+                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[24px] sm:text-[30px] transition-colors"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     <DecryptedText
@@ -239,7 +240,7 @@ export default function App() {
 
                   {/* Double Chevron Growth Arrow (iNazorat Signature Elevate mark) */}
                   <svg 
-                    className="text-[#20c997] absolute transition-all duration-300 ease-in-out drop-shadow-[0_2px_8px_rgba(32,201,151,0.35)] w-[17px] h-[17px] -top-[4px] -right-[12px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
+                    className="text-[#20c997] absolute transition-all duration-300 ease-in-out drop-shadow-[0_2px_8px_rgba(32,201,151,0.35)] w-[16px] h-[16px] -top-[4px] -right-[12px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
                     viewBox="0 0 24 24" 
                     fill="none" 
                     stroke="currentColor" 
@@ -252,7 +253,7 @@ export default function App() {
                   </svg>
                 </div>
 
-                <span className="ml-5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tracking-wide">
+                <span className="ml-5 text-[10px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tracking-wide">
                   AML
                 </span>
               </div>
@@ -265,8 +266,8 @@ export default function App() {
               </div>
             </div>
 
-            {/* Center: React Bits Animated Floating Pill Navigation */}
-            <div className="flex-1 flex justify-center min-w-0 overflow-x-auto no-scrollbar py-1">
+            {/* Desktop Center: Floating Pill Navigation (Hidden on < lg) */}
+            <div className="hidden lg:flex flex-1 justify-center min-w-0 px-2">
               <AnimatedTabs
                 tabs={navTabs}
                 activeTab={activeTab}
@@ -275,31 +276,42 @@ export default function App() {
             </div>
 
             {/* Right: Submission Button & Theme Toggle */}
-            <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <button
                 onClick={() => setActiveTab('submission')}
-                className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] transition-all active:scale-95 shadow-xs"
+                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-semibold bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] transition-all active:scale-95 shadow-xs"
                 title="Rasmiy Submission Tekshiruvi"
               >
                 <Award className="w-3.5 h-3.5 text-[#20c997]" />
-                <span>team_98F12CFB.csv</span>
+                <span className="hidden sm:inline">team_98F12CFB.csv</span>
+                <span className="sm:hidden">CSV</span>
               </button>
 
               <button
                 onClick={() => setIsDark(!isDark)}
                 className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-amber-400 transition-all duration-200 active:scale-95 border border-transparent hover:border-slate-200 dark:hover:border-white/10"
                 title={isDark ? "Yorug' rejimga o'tish" : "Qorong'i rejimga o'tish"}
+                aria-label="Theme toggle"
               >
                 {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
               </button>
             </div>
 
           </div>
+
+          {/* Mobile & Tablet Full-Width Horizontal Scrollable Tab Bar (Visible only on < lg) */}
+          <div className="lg:hidden pb-2.5 pt-0.5 overflow-x-auto no-scrollbar flex items-center justify-start gap-1">
+            <AnimatedTabs
+              tabs={navTabs}
+              activeTab={activeTab}
+              onChange={setActiveTab}
+            />
+          </div>
         </div>
       </header>
 
       {/* Main Content Viewport */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
         {/* ---------------- SECTION 1: OVERVIEW ---------------- */}
         {activeTab === 'overview' && (
@@ -316,7 +328,7 @@ export default function App() {
                     <Database className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white font-mono">
+                <div className="mt-2.5 sm:mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono">
                   <CountUp to={20000} duration={1.2} />
                 </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">14,000 Train + 6,000 Hidden Test</p>
@@ -338,7 +350,7 @@ export default function App() {
                     <ShieldAlert className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
+                <div className="mt-2.5 sm:mt-3 text-2xl sm:text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
                   <CountUp to={17.18} decimals={2} suffix="%" duration={1.4} />
                 </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">2,405 Tasdiqlangan / 11,595 Yopilgan</p>
@@ -358,7 +370,7 @@ export default function App() {
                     <Layers className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
+                <div className="mt-2.5 sm:mt-3 text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
                   <CountUp to={summaryStats.engineeredFeatures} duration={1.5} />
                 </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Zero-leakage temporal xususiyatlar</p>
@@ -378,7 +390,7 @@ export default function App() {
                     <Award className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
+                <div className="mt-2.5 sm:mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
                   <CountUp to={modelMetricsData.ensembleAUC} decimals={5} duration={1.8} />
                 </div>
                 <p className="mt-1 text-xs text-emerald-600 dark:text-emerald-400 font-bold font-mono">
@@ -522,8 +534,8 @@ export default function App() {
               </div>
 
               {/* Behavioral Table */}
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto no-scrollbar">
+                <table className="w-full min-w-[640px] text-left text-xs">
                   <thead>
                     <tr className="border-b border-slate-100 dark:border-white/10 text-slate-400 uppercase tracking-wider font-semibold">
                       <th className="py-3 px-4">AML Indikatori Nomi</th>
@@ -1859,22 +1871,22 @@ export default function App() {
       </main>
 
       {/* Ultra-Minimalist iNazorat-style StatusBar */}
-      <footer className="border-t border-slate-200/60 dark:border-white/[0.05] bg-slate-50/40 dark:bg-transparent backdrop-blur-md py-4 px-6 text-xs text-slate-500 dark:text-slate-400 transition-colors">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px]">
-          <div className="flex items-center gap-2.5">
+      <footer className="border-t border-slate-200/60 dark:border-white/[0.05] bg-slate-50/40 dark:bg-transparent backdrop-blur-md py-4 px-4 sm:px-6 text-xs text-slate-500 dark:text-slate-400 transition-colors">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 font-mono text-[11px] text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#20c997] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#20c997]"></span>
             </span>
             <span className="font-bold text-slate-800 dark:text-slate-200 font-sans">gitcore</span>
             <span className="text-slate-300 dark:text-slate-700">•</span>
-            <span>WIUT Hackathon 2026 · FinTech & AI</span>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
-            <span>10,015,238 tranzaksiya</span>
+            <span>WIUT Hackathon 2026</span>
+            <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+            <span className="hidden sm:inline">10,015,238 tranzaksiya</span>
           </div>
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-            <span>Ensemble: XGB + CAT + LGB</span>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 text-slate-500 dark:text-slate-400">
+            <span className="hidden md:inline">Ensemble: XGB + CAT + LGB</span>
+            <span className="text-slate-300 dark:text-slate-700 hidden md:inline">•</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-bold">AUC {modelMetricsData.ensembleAUC.toFixed(5)}</span>
             <span className="text-slate-300 dark:text-slate-700">•</span>
             <span className="text-slate-400 dark:text-slate-500">ID: {summaryStats.teamId}</span>
