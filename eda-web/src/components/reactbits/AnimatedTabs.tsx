@@ -14,6 +14,7 @@ interface AnimatedTabsProps {
   activeTab: string;
   onChange: (id: any) => void;
   className?: string;
+  layoutIdPrefix?: string;
 }
 
 export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
@@ -21,10 +22,11 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
   activeTab,
   onChange,
   className = '',
+  layoutIdPrefix = 'nav',
 }) => {
   return (
     <nav
-      className={`relative flex items-center gap-1 p-1 bg-slate-200/50 dark:bg-white/[0.06] backdrop-blur-xl rounded-full border border-[#f1f2f4] dark:border-white/10 overflow-x-auto ${className}`}
+      className={`relative flex items-center gap-1 p-1 bg-slate-200/50 dark:bg-white/[0.06] backdrop-blur-xl rounded-full border border-[#f1f2f4] dark:border-white/10 overflow-x-auto max-w-full ${className}`}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {tabs.map((tab) => {
@@ -36,7 +38,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-150 whitespace-nowrap flex-shrink-0 z-10 select-none ${
+            className={`relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors duration-150 whitespace-nowrap flex-shrink-0 z-10 select-none ${
               isActive
                 ? 'text-slate-900 dark:text-white font-semibold'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -44,7 +46,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
           >
             {isActive && (
               <motion.div
-                layoutId="activePillIndicator"
+                layoutId={`${layoutIdPrefix}-activePill`}
                 className="absolute inset-0 bg-white dark:bg-white/10 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] border border-slate-200/60 dark:border-white/10 -z-10"
                 transition={{ type: 'spring', stiffness: 480, damping: 36 }}
               />
@@ -57,7 +59,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
             />
             <span>{tab.label}</span>
             {tab.badge && (
-              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-medium">
+              <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-medium">
                 {tab.badge}
               </span>
             )}

@@ -82,7 +82,7 @@ export default function App() {
     { id: 'simulator', label: 'Simulyator', icon: Sliders },
     { id: 'rules', label: 'MB 2515', icon: Scale },
     { id: 'cases', label: 'Tergov & STR', icon: FileText },
-    { id: 'submission', label: 'Topshirish', icon: Award, badge: '6000' },
+    { id: 'submission', label: 'Topshirish', icon: Award, badge: '6k' },
   ], []);
 
   const [featureCategory, setFeatureCategory] = useState<string>('All');
@@ -215,17 +215,17 @@ export default function App() {
           {/* Main Navigation Row */}
           <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
             
-            {/* Left: iNazorat-style Wordmark Logo & Live AUC Status */}
+            {/* Left: iNazorat-style Wordmark Logo */}
             <div className="flex items-center gap-3 flex-shrink-0">
               <div 
-                className="relative flex items-center pr-3 cursor-pointer group select-none"
+                className="relative flex items-center pr-1 cursor-pointer group select-none"
                 onClick={() => setLogoKey(k => k + 1)}
                 onMouseEnter={() => setLogoKey(k => k + 1)}
                 title="Kursor keltiring: Cyber Decrypt animatsiyasi"
               >
                 <div className="relative inline-flex items-center">
                   <span 
-                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[24px] sm:text-[30px] transition-colors"
+                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[24px] sm:text-[28px] transition-colors"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     <DecryptedText
@@ -257,21 +257,15 @@ export default function App() {
                   AML
                 </span>
               </div>
-
-              <div className="hidden xl:flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-white/10 text-[11px] font-mono text-slate-400">
-                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-500/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#20c997] animate-pulse" />
-                  0.6246 AUC
-                </span>
-              </div>
             </div>
 
-            {/* Desktop Center: Floating Pill Navigation (Hidden on < lg) */}
-            <div className="hidden lg:flex flex-1 justify-center min-w-0 px-2">
+            {/* Desktop Center: Floating Pill Navigation (Visible only on xl+ >= 1280px) */}
+            <div className="hidden xl:flex flex-1 items-center justify-center min-w-0 px-2">
               <AnimatedTabs
                 tabs={navTabs}
                 activeTab={activeTab}
                 onChange={setActiveTab}
+                layoutIdPrefix="desktop"
               />
             </div>
 
@@ -279,7 +273,11 @@ export default function App() {
             <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <button
                 onClick={() => setActiveTab('submission')}
-                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-semibold bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] transition-all active:scale-95 shadow-xs"
+                className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-semibold transition-all active:scale-95 shadow-xs ${
+                  activeTab === 'submission'
+                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 ring-1 ring-emerald-500/30 shadow-[0_0_12px_rgba(32,201,151,0.2)]'
+                    : 'bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08]'
+                }`}
                 title="Rasmiy Submission Tekshiruvi"
               >
                 <Award className="w-3.5 h-3.5 text-[#20c997]" />
@@ -299,12 +297,13 @@ export default function App() {
 
           </div>
 
-          {/* Mobile & Tablet Full-Width Horizontal Scrollable Tab Bar (Visible only on < lg) */}
-          <div className="lg:hidden pb-2.5 pt-0.5 overflow-x-auto no-scrollbar flex items-center justify-start gap-1">
+          {/* Mobile & Tablet Full-Width Horizontal Scrollable Tab Bar (Visible on < xl) */}
+          <div className="xl:hidden pb-2.5 pt-1 overflow-x-auto no-scrollbar flex items-center justify-start sm:justify-center gap-1 px-1">
             <AnimatedTabs
               tabs={navTabs}
               activeTab={activeTab}
               onChange={setActiveTab}
+              layoutIdPrefix="mobile"
             />
           </div>
         </div>
