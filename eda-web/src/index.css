@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -135,4 +137,82 @@
 
 .animate-shine {
   animation: shine 5s linear infinite;
+}
+
+/* Shiny Text Animation for Light and Dark Modes */
+@keyframes shiny-sweep {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shiny-text-animated {
+  background: linear-gradient(120deg, #1e293b 0%, #059669 45%, #20c997 50%, #1e293b 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny-sweep 4s linear infinite;
+}
+
+.dark .shiny-text-animated {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.6) 0%, #20c997 50%, rgba(255, 255, 255, 0.6) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny-sweep 4s linear infinite;
+}
+
+/* Recharts Tooltip Theme-Aware Polish (Image 1 fix) */
+.recharts-default-tooltip {
+  border-radius: 14px !important;
+  padding: 10px 14px !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .recharts-default-tooltip {
+  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.6) !important;
+}
+
+.recharts-tooltip-label {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  margin-bottom: 6px !important;
+  font-family: inherit !important;
+  letter-spacing: -0.01em !important;
+}
+
+.dark .recharts-tooltip-label {
+  color: #f1f5f9 !important;
+}
+
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-unit,
+.recharts-tooltip-item-separator {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+.dark .recharts-tooltip-item-name,
+.dark .recharts-tooltip-item-unit,
+.dark .recharts-tooltip-item-separator {
+  color: #20c997 !important;
+  font-weight: 600 !important;
+}
+
+.recharts-tooltip-item-value {
+  color: #059669 !important;
+  font-weight: 700 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+.dark .recharts-tooltip-item-value {
+  color: #34d399 !important;
+  font-weight: 700 !important;
 }

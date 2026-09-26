@@ -25,6 +25,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        quicksand: ['Quicksand', 'sans-serif'],
       }
     },
   },

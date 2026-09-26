@@ -265,7 +265,7 @@ export default function App() {
             >
               <div className="relative inline-flex items-center">
                 <span 
-                  className="font-bold tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[28px] sm:text-[34px] transition-colors"
+                  className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[28px] sm:text-[34px] transition-colors"
                   style={{ fontFamily: "'Quicksand', sans-serif" }}
                 >
                   <DecryptedText
@@ -273,8 +273,8 @@ export default function App() {
                     trigger={logoKey}
                     speed={28}
                     maxIterations={12}
-                    className="font-bold tracking-tight text-slate-800 dark:text-slate-100 inline"
-                    encryptedClassName="text-[#20c997] font-mono drop-shadow-[0_0_8px_rgba(32,201,151,0.6)]"
+                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 inline"
+                    encryptedClassName="text-[#20c997] font-quicksand drop-shadow-[0_0_6px_rgba(32,201,151,0.5)]"
                   />
                 </span>
 
@@ -633,6 +633,7 @@ export default function App() {
                           boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
                           color: isDark ? '#f1f5f9' : '#0f172a'
                         }}
+                        labelStyle={{ color: isDark ? '#f1f5f9' : '#0f172a', fontWeight: 700, marginBottom: '4px' }}
                         itemStyle={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
                       />
                       <Bar dataKey="normal" fill="#3b82f6" name="Tarixiy fon" radius={[4, 4, 0, 0]} />
@@ -663,6 +664,7 @@ export default function App() {
                           boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
                           color: isDark ? '#f1f5f9' : '#0f172a'
                         }}
+                        labelStyle={{ color: isDark ? '#f1f5f9' : '#0f172a', fontWeight: 700, marginBottom: '4px' }}
                         itemStyle={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
                       />
                       <Bar dataKey="percentage" fill="#10b981" radius={[4, 4, 0, 0]} name="Ulush %" />
@@ -714,12 +716,25 @@ export default function App() {
                     data={filteredFeatures}
                     margin={{ top: 10, right: 30, left: 140, bottom: 10 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.4} horizontal={false} />
-                    <XAxis type="number" stroke="#64748b" fontSize={11} unit="%" />
-                    <YAxis dataKey="name" type="category" stroke="#64748b" fontSize={11} tickLine={false} width={135} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0"} strokeOpacity={0.7} horizontal={false} />
+                    <XAxis type="number" stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} unit="%" />
+                    <YAxis dataKey="name" type="category" stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} tickLine={false} width={135} />
                     <Tooltip
                       formatter={(val: any) => [`${val}%`, 'Ahamiyati']}
-                      contentStyle={{ borderRadius: '12px' }}
+                      contentStyle={{
+                        backgroundColor: isDark ? '#0f172a' : '#ffffff',
+                        borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#f1f2f4',
+                        borderRadius: '14px',
+                        boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
+                        color: isDark ? '#f1f5f9' : '#0f172a'
+                      }}
+                      labelStyle={{
+                        color: isDark ? '#f1f5f9' : '#0f172a',
+                        fontWeight: 700,
+                        fontSize: '13px',
+                        marginBottom: '4px'
+                      }}
+                      itemStyle={{ color: isDark ? '#34d399' : '#059669', fontWeight: 600 }}
                     />
                     <Bar dataKey="importance" fill="#10b981" radius={[0, 4, 4, 0]}>
                       {filteredFeatures.map((entry, index) => (
@@ -764,10 +779,25 @@ export default function App() {
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={rocCurveData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.4} />
-                      <XAxis dataKey="fpr" stroke="#64748b" fontSize={11} domain={[0, 1]} />
-                      <YAxis stroke="#64748b" fontSize={11} domain={[0, 1]} />
-                      <Tooltip contentStyle={{ borderRadius: '12px' }} />
+                      <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0"} strokeOpacity={0.7} />
+                      <XAxis dataKey="fpr" stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} domain={[0, 1]} />
+                      <YAxis stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} domain={[0, 1]} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+                          borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#f1f2f4',
+                          borderRadius: '14px',
+                          boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
+                          color: isDark ? '#f1f5f9' : '#0f172a'
+                        }}
+                        labelStyle={{
+                          color: isDark ? '#f1f5f9' : '#0f172a',
+                          fontWeight: 700,
+                          fontSize: '13px',
+                          marginBottom: '4px'
+                        }}
+                        itemStyle={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
+                      />
                       <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
                       <Line type="monotone" dataKey="baseline" stroke="#94a3b8" strokeDasharray="4 4" name="Tasodifiy (0.500)" dot={false} />
                       <Line type="monotone" dataKey="tpr_lgb" stroke="#10b981" name={`LightGBM (${modelMetricsData.lightgbmAUC.toFixed(4)})`} dot={false} strokeWidth={1.5} />
@@ -1739,8 +1769,8 @@ export default function App() {
 
         {/* OFFICIAL CENTRAL BANK STR (SUSPICIOUS TRANSACTION REPORT) MODAL */}
         {activeStrCase && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md overflow-y-auto animate-fadeIn">
-            <div className="bg-white dark:bg-[#0c1222] border-2 border-slate-300 dark:border-white/10 rounded-[24px] max-w-3xl w-full p-6 sm:p-8 shadow-2xl relative space-y-6 my-8 print:border-none print:shadow-none print:p-0">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xl overflow-y-auto animate-fadeIn">
+            <div className="bg-white/95 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-2 border-[#f1f2f4] dark:border-white/10 rounded-[24px] max-w-3xl w-full p-6 sm:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative space-y-6 my-8 print:border-none print:shadow-none print:p-0">
               {/* Close Button (Hidden on Print) */}
               <button
                 onClick={() => setActiveStrCase(null)}
