@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import {
   ShieldAlert,
   Database,
@@ -62,14 +63,45 @@ import {
   summaryStats,
 } from './data/edaData';
 
+import {
+  SpotlightCard,
+  CountUp,
+  ShinyText,
+  DecryptedText,
+  Squares,
+  AnimatedTabs,
+  type TabItem,
+} from './components/reactbits';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'eda' | 'features' | 'models' | 'simulator' | 'rules' | 'cases' | 'submission'>('overview');
+
+  const navTabs: TabItem[] = useMemo(() => [
+    { id: 'overview', label: 'Xulosa', icon: Sparkles },
+    { id: 'eda', label: 'EDA & Xulq', icon: Database },
+    { id: 'features', label: '226 Xususiyat', icon: Layers },
+    { id: 'models', label: 'Modellar', icon: Cpu },
+    { id: 'simulator', label: 'Simulyator', icon: Sliders },
+    { id: 'rules', label: 'MB 2515', icon: Scale },
+    { id: 'cases', label: 'Tergov & STR', icon: FileText },
+    { id: 'submission', label: 'Topshirish', icon: Award, badge: '6000' },
+  ], []);
+
   const [featureCategory, setFeatureCategory] = useState<string>('All');
-  const [isDark, setIsDark] = useState<boolean>(true);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    try {
+      const stored = localStorage.getItem('inazorat-theme') || localStorage.getItem('theme');
+      if (stored) return stored === 'dark';
+      return document.documentElement.classList.contains('dark');
+    } catch (e) {
+      return true;
+    }
+  });
   const [copied, setCopied] = useState<boolean>(false);
   const [roiThreshold, setRoiThreshold] = useState<number>(0.35);
   const [caseSearch, setCaseSearch] = useState<string>('');
   const [caseFilter, setCaseFilter] = useState<'ALL' | 'ESCALATE' | 'DISMISS'>('ALL');
+  const [logoKey, setLogoKey] = useState<number>(0);
 
   // Live What-If AML Risk Simulator State
   const [simAmount, setSimAmount] = useState<number>(2.4);
@@ -82,12 +114,18 @@ export default function App() {
   // Central Bank STR Modal State
   const [activeStrCase, setActiveStrCase] = useState<any | null>(null);
 
-  // Sync dark class on root html
+  // Sync dark class on root html & persist theme
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      localStorage.setItem('inazorat-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('inazorat-theme', 'light');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
 
@@ -166,21 +204,36 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300 flex flex-col font-sans relative overflow-x-hidden">
-      {/* Background Ambient Glows (iNazorat Signature) */}
-      <div className="fixed top-0 right-1/4 w-[600px] h-[600px] bg-[#20c997]/10 dark:bg-[#20c997]/12 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="fixed bottom-10 left-10 w-[500px] h-[500px] bg-blue-500/5 dark:bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-slate-100 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300 relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+      {/* Background Decorative Blur Gradients - EXACTLY matching iNazorat DashboardLayout */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50/50 to-emerald-50/10 dark:from-[#0b0f19] dark:via-[#0d1323] dark:to-[#0f172a]/20 transition-colors duration-300">
+        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-emerald-200/20 dark:bg-emerald-500/4 blur-[140px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/15 dark:bg-emerald-400/4 blur-[150px]" />
+      </div>
 
-      {/* Top Banner - Frosted Glass Ribbon */}
-      <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/5 px-6 py-2 flex items-center justify-between text-xs">
+      {/* React Bits Squares Interactive Background - delicate, non-intrusive */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30 dark:opacity-15">
+        <Squares
+          direction="diagonal"
+          speed={0.16}
+          borderColor={isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(32, 201, 151, 0.08)"}
+          squareSize={42}
+          hoverFillColor="rgba(32, 201, 151, 0.12)"
+        />
+      </div>
+
+      {/* Top Banner - iNazorat Signature Frosted Glass Ribbon */}
+      <div className="relative z-10 bg-white/70 dark:bg-[#0b0f19]/70 backdrop-blur-xl border-b border-[#f1f2f4] dark:border-white/5 px-4 sm:px-6 py-1.5 flex items-center justify-between text-xs transition-colors duration-300">
         <div className="flex items-center gap-2.5">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#20c997] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#20c997]"></span>
           </span>
-          <span className="font-bold text-slate-800 dark:text-emerald-400 uppercase tracking-wider text-[11px]">
-            WIUT Hackathon 2026 · FinTech & AI in Finance
-          </span>
+          <ShinyText
+            text="WIUT HACKATHON 2026 · FINTECH & AI IN FINANCE"
+            speed={4}
+            className="font-bold text-slate-800 dark:text-emerald-400 uppercase tracking-wider text-[11px]"
+          />
           <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
           <span className="text-slate-500 dark:text-slate-400 hidden sm:inline text-[11px]">
             Elimination Task: AML Alert Prioritization
@@ -188,75 +241,98 @@ export default function App() {
         </div>
         
         <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#20c997]" />
+            <span>Ensemble: XGB + CAT + LGB</span>
+          </div>
           <span className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold">
             Team: {summaryStats.teamName} ({summaryStats.teamId})
           </span>
-          
-          {/* Light / Dark Mode Toggle */}
-          <button
-            onClick={() => setIsDark(!isDark)}
-            className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-600 dark:text-slate-300 transition-all active:scale-95 border border-slate-200 dark:border-transparent"
-            title={isDark ? "Yorug' rejimga o'tish" : "Qorong'i rejimga o'tish"}
-          >
-            {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
-          </button>
         </div>
       </div>
 
-      {/* Main Glass Header & Cockpit Navigation */}
-      <header className="sticky top-0 z-40 bg-white/70 dark:bg-[#0b0f19]/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/5 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          
-          {/* Brand & Title */}
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#20c997] to-teal-700 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#20c997]/25 text-white">
-              <ShieldAlert className="w-6 h-6" strokeWidth={1.8} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                  gitcore AML Engine
-                </h1>
-                <span className="text-[10px] bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 px-2 py-0.5 rounded-full font-mono font-bold uppercase">
-                  ROC-AUC 0.6246
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Machine Learning-Driven Alert Prioritization for Uzbekistan Financial Monitoring
-              </p>
-            </div>
-          </div>
-
-          {/* Segmented Glass Tabs (iNazorat Signature) */}
-          <nav className="flex items-center gap-1 bg-slate-100/80 dark:bg-white/5 backdrop-blur-sm p-1 rounded-2xl border border-slate-200/80 dark:border-white/10 overflow-x-auto custom-scrollbar">
-            {[
-              { id: 'overview', label: 'Umumiy Xulosa', icon: Sparkles },
-              { id: 'eda', label: 'Tranzaksiya Xulqi & EDA', icon: Database },
-              { id: 'features', label: '226 AML Xususiyatlari', icon: Layers },
-              { id: 'models', label: 'Model ROC-AUC', icon: Cpu },
-              { id: 'simulator', label: 'Risk Simulyatori & ROI', icon: Sliders },
-              { id: 'rules', label: 'MB 2515 Nizom Matritsasi', icon: Scale },
-              { id: 'cases', label: 'Tergov & STR Hisobot', icon: FileText },
-              { id: 'submission', label: 'Submission Check', icon: Award },
-            ].map(tab => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 whitespace-nowrap ${
-                    isActive
-                      ? 'bg-white dark:bg-white/10 text-[#20c997] shadow-sm border border-slate-200 dark:border-transparent'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/40 dark:hover:bg-white/5'
-                  }`}
+      {/* Main Glass Cockpit Header (iNazorat Signature Navigation) */}
+      <header className="sticky top-0 z-40 bg-white/80 dark:bg-[#0b0f19]/80 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/5 transition-all shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16 gap-3">
+            
+            {/* Left: iNazorat-style Minimalist Wordmark Logo with Attached Double Chevron Growth Arrow */}
+            <div 
+              className="relative flex items-center pr-3 cursor-pointer group select-none flex-shrink-0"
+              onClick={() => setLogoKey(k => k + 1)}
+              onMouseEnter={() => setLogoKey(k => k + 1)}
+              title="Kursor keltiring: Cyber Decrypt animatsiyasi"
+            >
+              <div className="relative inline-flex items-center">
+                <span 
+                  className="font-bold tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[28px] sm:text-[34px] transition-colors"
+                  style={{ fontFamily: "'Quicksand', sans-serif" }}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#20c997]' : 'text-slate-400'}`} strokeWidth={1.8} />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </nav>
+                  <DecryptedText
+                    text="gitcore"
+                    trigger={logoKey}
+                    speed={28}
+                    maxIterations={12}
+                    className="font-bold tracking-tight text-slate-800 dark:text-slate-100 inline"
+                    encryptedClassName="text-[#20c997] font-mono drop-shadow-[0_0_8px_rgba(32,201,151,0.6)]"
+                  />
+                </span>
+
+                {/* Double Chevron Growth Arrow (iNazorat Signature Elevate mark) */}
+                <svg 
+                  className="text-[#20c997] absolute transition-all duration-300 ease-in-out drop-shadow-[0_2px_8px_rgba(32,201,151,0.35)] w-[18px] h-[18px] -top-[4px] -right-[12px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="3.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M11 5 H 19 V 13" />
+                  <path d="M5 11 H 13 V 19" />
+                </svg>
+              </div>
+
+              <span className="ml-5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tracking-wide">
+                AML
+              </span>
+
+              <span className="hidden xl:inline-flex items-center gap-1.5 ml-2.5 text-[10px] bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 px-2.5 py-0.5 rounded-full font-mono font-bold tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#20c997] animate-pulse" />
+                0.6246
+              </span>
+            </div>
+
+            {/* Center: React Bits Animated Floating Pill Navigation */}
+            <div className="flex-1 flex justify-center min-w-0 overflow-x-auto no-scrollbar py-1">
+              <AnimatedTabs
+                tabs={navTabs}
+                activeTab={activeTab}
+                onChange={setActiveTab}
+              />
+            </div>
+
+            {/* Right: Submission Button & Theme Toggle */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                onClick={() => setActiveTab('submission')}
+                className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full text-xs font-mono font-bold transition-all active:scale-95 shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/35"
+                title="Rasmiy Submission Tekshiruvi"
+              >
+                <Award className="w-3.5 h-3.5" />
+                <span>team_98F12CFB.csv</span>
+              </button>
+
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="p-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-600 dark:text-slate-300 transition-all active:scale-95 border border-slate-200/80 dark:border-white/10"
+                title={isDark ? "Yorug' rejimga o'tish" : "Qorong'i rejimga o'tish"}
+              >
+                {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+              </button>
+            </div>
+
+          </div>
         </div>
       </header>
 
@@ -266,80 +342,97 @@ export default function App() {
         {/* ---------------- SECTION 1: OVERVIEW ---------------- */}
         {activeTab === 'overview' && (
           <div className="space-y-8 animate-fadeIn">
-            {/* KPI Cards Grid (Frosted Glass) */}
+            {/* KPI Cards Grid (React Bits Spotlight Cards) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div className="relative overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 transition-all hover:-translate-y-0.5 duration-200">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+              <SpotlightCard
+                spotlightColor="rgba(32, 201, 151, 0.16)"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:border-[#20c997]/40 hover:shadow-[0_8px_30px_-4px_rgba(32,201,151,0.12)] transition-all duration-300"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Jami Signallar</span>
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Jami Signallar</span>
+                  <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
                     <Database className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white font-mono">20,000</div>
+                <div className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white font-mono">
+                  <CountUp to={20000} duration={1.2} />
+                </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">14,000 Train + 6,000 Hidden Test</p>
                 <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
                   <span>Tranzaksiyalar:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">10,015,238</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200">
+                    <CountUp to={10015238} duration={1.5} />
+                  </span>
                 </div>
-              </div>
+              </SpotlightCard>
 
-              <div className="relative overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 transition-all hover:-translate-y-0.5 duration-200">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/10 rounded-full blur-2xl pointer-events-none" />
+              <SpotlightCard
+                spotlightColor="rgba(244, 63, 94, 0.16)"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:border-rose-500/40 hover:shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)] transition-all duration-300"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">Tarixiy Eskalatsiya</span>
-                  <div className="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center shadow-xs">
                     <ShieldAlert className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">17.18%</div>
+                <div className="mt-3 text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
+                  <CountUp to={17.18} decimals={2} suffix="%" duration={1.4} />
+                </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">2,405 Tasdiqlangan / 11,595 Yopilgan</p>
                 <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
                   <span>Imbalance Nisbati:</span>
-                  <span className="font-bold text-rose-500">~1 : 4.8</span>
+                  <span className="font-bold text-rose-600 dark:text-rose-400">~1 : 4.8</span>
                 </div>
-              </div>
+              </SpotlightCard>
 
-              <div className="relative overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 transition-all hover:-translate-y-0.5 duration-200">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+              <SpotlightCard
+                spotlightColor="rgba(32, 201, 151, 0.16)"
+                className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 hover:border-[#20c997]/40 hover:shadow-[0_8px_30px_-4px_rgba(32,201,151,0.12)] transition-all duration-300"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">AML Xususiyatlari</span>
-                  <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">AML Xususiyatlari</span>
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
                     <Layers className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">{summaryStats.engineeredFeatures}</div>
+                <div className="mt-3 text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
+                  <CountUp to={summaryStats.engineeredFeatures} duration={1.5} />
+                </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Zero-leakage temporal xususiyatlar</p>
                 <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
                   <span>Vaqt oynalari:</span>
                   <span className="font-bold text-emerald-600 dark:text-emerald-400">24h - 60 kun</span>
                 </div>
-              </div>
+              </SpotlightCard>
 
-              <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50/90 via-white/80 to-teal-50/90 dark:from-emerald-950/40 dark:via-slate-900/60 dark:to-teal-950/40 backdrop-blur-2xl rounded-[20px] border-2 border-emerald-300 dark:border-emerald-500/30 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-5 transition-all hover:-translate-y-0.5 duration-200">
+              <SpotlightCard
+                spotlightColor="rgba(32, 201, 151, 0.22)"
+                className="bg-gradient-to-br from-emerald-500/10 via-white/80 to-teal-500/10 dark:from-emerald-500/10 dark:via-white/5 dark:to-teal-500/10 backdrop-blur-2xl rounded-[20px] border-2 border-emerald-500/30 dark:border-emerald-500/30 shadow-[0_4px_20px_-4px_rgba(32,201,151,0.15)] p-5 hover:border-[#20c997]/60 hover:shadow-[0_8px_30px_-4px_rgba(32,201,151,0.25)] transition-all duration-300"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Final Ensemble AUC</span>
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#20c997] to-teal-700 text-white flex items-center justify-center shadow-sm">
                     <Award className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
-                  {modelMetricsData.ensembleAUC.toFixed(5)}
+                  <CountUp to={modelMetricsData.ensembleAUC} decimals={5} duration={1.8} />
                 </div>
-                <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400 font-semibold font-mono">
+                <p className="mt-1 text-xs text-emerald-600 dark:text-emerald-400 font-bold font-mono">
                   +0.0219 baseline ustunligi
                 </p>
-                <div className="mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-500/20 flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 font-mono">
+                <div className="mt-4 pt-3 border-t border-emerald-500/20 dark:border-emerald-500/20 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
                   <span>Ensemble:</span>
-                  <span className="font-bold text-emerald-700 dark:text-emerald-400">XGB + CAT + LGB Rank</span>
+                  <span className="font-bold text-[#20c997]">XGB + CAT + LGB</span>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
 
             {/* Problem Statement & Architecture */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 space-y-4">
-                <div className="flex items-center gap-2.5 text-[#20c997]">
+              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-4">
+                <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
                   <Zap className="w-5 h-5" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                     Muammo Qo'yilishi & FinTech Mazmuni
@@ -349,7 +442,7 @@ export default function App() {
                   O'zbekiston tijorat banklari va to'lov tizimlaridagi avtomatlashtirilgan monitoring qoidalari (rule engines) har kuni minglab ogohlantirish signallarini generatsiya qiladi. Biroq 2025–2026 yillardagi haqiqiy ma'lumotlar shuni ko'rsatadiki, signallarning <strong>82.8% dan ortig'i soxta ogohlantirish (false positive)</strong> bo'lib, mutaxassislar vaqtini noo'rin band etadi.
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <strong className="text-emerald-700 dark:text-[#20c997]">gitcore</strong> jamoasi ishlab chiqqan machine learning modeli har bir signalning eskalatsiya qilinish ehtimolligini aniq baholab, monitoring xodimlariga signallarni xavf darajasiga ko'ra avtomatik tartiblab beradi.
+                  <strong className="text-slate-900 dark:text-white font-semibold">gitcore</strong> jamoasi ishlab chiqqan machine learning modeli har bir signalning eskalatsiya qilinish ehtimolligini aniq baholab, monitoring xodimlariga signallarni xavf darajasiga ko'ra avtomatik tartiblab beradi.
                 </p>
 
                 {/* 3 Pillars */}
@@ -381,7 +474,7 @@ export default function App() {
               </div>
 
               {/* Hackathon Deliverables Status Card */}
-              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 flex flex-col justify-between">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
                     <CheckCircle2 className="w-5 h-5" />
@@ -444,7 +537,7 @@ export default function App() {
         {/* ---------------- SECTION 2: EDA & BEHAVIOR ---------------- */}
         {activeTab === 'eda' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -511,7 +604,7 @@ export default function App() {
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                   Oxirgi 24 Soatdagi Amaliyotlar Spayki
                 </h4>
@@ -529,10 +622,19 @@ export default function App() {
                       ]}
                       margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.4} />
-                      <XAxis dataKey="window" stroke="#64748b" fontSize={11} />
-                      <YAxis stroke="#64748b" fontSize={11} />
-                      <Tooltip contentStyle={{ borderRadius: '12px' }} />
+                      <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0"} strokeOpacity={0.7} />
+                      <XAxis dataKey="window" stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} />
+                      <YAxis stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+                          borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#f1f2f4',
+                          borderRadius: '14px',
+                          boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
+                          color: isDark ? '#f1f5f9' : '#0f172a'
+                        }}
+                        itemStyle={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
+                      />
                       <Bar dataKey="normal" fill="#3b82f6" name="Tarixiy fon" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="alert" fill="#ef4444" name="Tetiklovchi 24h spayk" radius={[4, 4, 0, 0]} />
                     </BarChart>
@@ -540,7 +642,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                   To'lov Kanallari bo'yicha Xavf Taqsimoti
                 </h4>
@@ -550,11 +652,20 @@ export default function App() {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={channelDistributionData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.4} />
-                      <XAxis dataKey="name" stroke="#64748b" fontSize={10} />
-                      <YAxis stroke="#64748b" fontSize={11} unit="%" />
-                      <Tooltip contentStyle={{ borderRadius: '12px' }} />
-                      <Bar dataKey="percentage" fill="#20c997" radius={[4, 4, 0, 0]} name="Ulush %" />
+                      <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0"} strokeOpacity={0.7} />
+                      <XAxis dataKey="name" stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={10} />
+                      <YAxis stroke={isDark ? "#94a3b8" : "#64748b"} fontSize={11} unit="%" />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+                          borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#f1f2f4',
+                          borderRadius: '14px',
+                          boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.06)',
+                          color: isDark ? '#f1f5f9' : '#0f172a'
+                        }}
+                        itemStyle={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
+                      />
+                      <Bar dataKey="percentage" fill="#10b981" radius={[4, 4, 0, 0]} name="Ulush %" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -566,7 +677,7 @@ export default function App() {
         {/* ---------------- SECTION 3: FEATURES ---------------- */}
         {activeTab === 'features' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -610,7 +721,7 @@ export default function App() {
                       formatter={(val: any) => [`${val}%`, 'Ahamiyati']}
                       contentStyle={{ borderRadius: '12px' }}
                     />
-                    <Bar dataKey="importance" fill="#20c997" radius={[0, 4, 4, 0]}>
+                    <Bar dataKey="importance" fill="#10b981" radius={[0, 4, 4, 0]}>
                       {filteredFeatures.map((entry, index) => (
                         <Cell
                           key={`cell-${index}`}
@@ -619,7 +730,7 @@ export default function App() {
                             entry.category === 'Bank Transfers' ? '#8b5cf6' :
                             entry.category === 'Temporal & Velocity' ? '#ef4444' :
                             entry.category === 'Trigger Signatures' ? '#ec4899' :
-                            '#20c997'
+                            '#10b981'
                           }
                         />
                       ))}
@@ -635,7 +746,7 @@ export default function App() {
         {activeTab === 'models' && (
           <div className="space-y-8 animate-fadeIn">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+              <div className="lg:col-span-2 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -669,7 +780,7 @@ export default function App() {
               </div>
 
               {/* Leaderboard */}
-              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 flex flex-col justify-between">
+              <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6 flex flex-col justify-between">
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                     Arxitektura Taqqoslanishi
@@ -712,7 +823,7 @@ export default function App() {
                     <div className="p-3.5 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-xl flex items-center justify-between">
                       <div>
                         <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-[#20c997]" />
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
                           Weighted Rank Ensemble
                         </span>
                         <p className="text-[10px] text-emerald-600 dark:text-emerald-400">65% XGB + 32% CAT + 3% LGB</p>
@@ -737,8 +848,7 @@ export default function App() {
         {activeTab === 'simulator' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Header Description Card */}
-            <div className="relative overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-start gap-3.5">
                   <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-100 dark:border-transparent">
@@ -773,7 +883,7 @@ export default function App() {
             {/* Simulator Split Grid: Controls & Live AI Assessment */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Controls Column (7 Cols) */}
-              <div className="lg:col-span-7 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 space-y-6">
+              <div className="lg:col-span-7 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-6">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white pb-3 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
                   <span>Tranzaksiya Parametrlari (Inputs)</span>
                   <span className="text-[11px] text-slate-400 font-normal">Slayderlarni surib ko'ring</span>
@@ -806,14 +916,14 @@ export default function App() {
                             onClick={() => setSimChannel(item.id as any)}
                             className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
                               isSelected
-                                ? 'bg-white dark:bg-white/10 border-[#20c997] shadow-sm ring-1 ring-[#20c997]/30 text-slate-900 dark:text-white'
-                                : 'bg-white/50 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/10'
+                                ? 'bg-white dark:bg-white/10 border-slate-900 dark:border-white shadow-sm ring-1 ring-slate-900/10 dark:ring-white/20 text-slate-900 dark:text-white'
+                                : 'bg-slate-50/70 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/10'
                             }`}
                           >
                             <div className="flex items-center justify-between w-full mb-1.5">
-                              <Icon className={`w-4 h-4 ${isSelected ? 'text-[#20c997]' : 'text-slate-400'}`} />
+                              <Icon className={`w-4 h-4 ${isSelected ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`} />
                               {isSelected && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#20c997]" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                               )}
                             </div>
                             <div>
@@ -919,7 +1029,7 @@ export default function App() {
                       step={0.1}
                       value={simAmount}
                       onChange={(e) => setSimAmount(parseFloat(e.target.value))}
-                      className="w-full accent-[#20c997] cursor-pointer"
+                      className="w-full accent-emerald-500 cursor-pointer"
                     />
                     <div className="flex justify-between text-[10px] text-slate-400">
                       <span>-2.5σ (Juda kichik)</span>
@@ -991,14 +1101,17 @@ export default function App() {
               </div>
 
               {/* Real-time AI Output Column (5 Cols) */}
-              <div className="lg:col-span-5 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 flex flex-col justify-between space-y-5">
+              <SpotlightCard
+                spotlightColor={isDark ? "rgba(32, 201, 151, 0.12)" : "rgba(32, 201, 151, 0.15)"}
+                className="lg:col-span-5 bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 flex flex-col justify-between space-y-5"
+              >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
                     <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                       Model Baholashi & Xavf Tahlili
                     </span>
                     <span className="flex items-center gap-1.5 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">
-                      <span className="w-2 h-2 rounded-full bg-[#20c997] animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       Ensemble Faol
                     </span>
                   </div>
@@ -1142,11 +1255,11 @@ export default function App() {
                     <span>Ushbu Ssenariy uchun STR Bayonnoma Ochish</span>
                   </button>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
 
             {/* ROI Cost-Benefit Optimizer Banner & Calculator */}
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6 space-y-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
@@ -1195,47 +1308,59 @@ export default function App() {
                 </div>
               </div>
 
-              {/* 4-KPI ROI Cards */}
+              {/* 4-KPI ROI Cards (React Bits Spotlight) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5">
+                <SpotlightCard
+                  spotlightColor="rgba(59, 130, 246, 0.18)"
+                  className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5"
+                >
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Soxta Signallarni Filtrlash</span>
                   <div className="mt-2 text-2xl font-mono font-extrabold text-blue-600 dark:text-blue-400">
-                    {roiMetrics.suppressionRate}%
+                    <CountUp to={roiMetrics.suppressionRate} suffix="%" duration={1.2} />
                   </div>
                   <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                     Kuniga {roiMetrics.autoDismissedAlerts} ta asossiz signal avtomatik yopiladi
                   </p>
-                </div>
+                </SpotlightCard>
 
-                <div className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5">
+                <SpotlightCard
+                  spotlightColor="rgba(16, 185, 129, 0.18)"
+                  className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5"
+                >
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Tejalgan Mutaxassis Vaqti</span>
                   <div className="mt-2 text-2xl font-mono font-extrabold text-emerald-600 dark:text-emerald-400">
-                    {roiMetrics.annualHoursSaved} soat/yil
+                    <CountUp to={roiMetrics.annualHoursSaved} suffix=" soat/yil" duration={1.4} />
                   </div>
                   <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                     Har kuni {roiMetrics.hoursSavedPerDay} soat insoniy mehnat tejaladi
                   </p>
-                </div>
+                </SpotlightCard>
 
-                <div className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5">
+                <SpotlightCard
+                  spotlightColor="rgba(99, 102, 241, 0.18)"
+                  className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5"
+                >
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Yillik Moliyaviy Tejamkorlik</span>
                   <div className="mt-2 text-2xl font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
-                    {roiMetrics.annualCostSavedUZS} Mlrd UZS
+                    <CountUp to={roiMetrics.annualCostSavedUZS} decimals={1} suffix=" Mlrd UZS" duration={1.5} />
                   </div>
                   <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                     ~ ${roiMetrics.annualCostSavedUSD} compliance byudjeti tejaladi
                   </p>
-                </div>
+                </SpotlightCard>
 
-                <div className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5">
+                <SpotlightCard
+                  spotlightColor="rgba(168, 85, 247, 0.18)"
+                  className="bg-slate-50/80 dark:bg-white/5 p-4 rounded-xl border border-slate-200/80 dark:border-white/5"
+                >
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Jinoyatni Aniqlash (Recall)</span>
                   <div className="mt-2 text-2xl font-mono font-extrabold text-purple-600 dark:text-purple-400">
-                    {roiMetrics.recallRate}%
+                    <CountUp to={roiMetrics.recallRate} decimals={1} suffix="%" duration={1.3} />
                   </div>
                   <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                     Kritik noqonuniy oqimlarni o'tkazib yuborish xavfi minimal
                   </p>
-                </div>
+                </SpotlightCard>
               </div>
 
               {/* Comparative Table: Traditional vs AI */}
@@ -1284,7 +1409,7 @@ export default function App() {
         {/* ---------------- SECTION: CENTRAL BANK REGULATORY RULES MATRIX ---------------- */}
         {activeTab === 'rules' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
@@ -1309,9 +1434,10 @@ export default function App() {
               {/* Regulatory Rules Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {centralBankRulesData.map((rule) => (
-                  <div
+                  <SpotlightCard
                     key={rule.id}
-                    className="p-5 rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 space-y-4 hover:border-purple-300 dark:hover:border-purple-500/30 transition-all flex flex-col justify-between"
+                    spotlightColor="rgba(168, 85, 247, 0.16)"
+                    className="p-5 bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 space-y-4 hover:border-purple-300 dark:hover:border-purple-500/30 transition-all flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2.5">
@@ -1374,7 +1500,7 @@ export default function App() {
                         <span className="text-rose-600 dark:text-rose-400 text-[11px]">{rule.penaltyRisk}</span>
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 ))}
               </div>
             </div>
@@ -1384,7 +1510,7 @@ export default function App() {
         {/* ---------------- SECTION 6: CASE STUDIES & STR EXPORT ---------------- */}
         {activeTab === 'cases' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -1411,9 +1537,9 @@ export default function App() {
                     <button
                       key={f.id}
                       onClick={() => setCaseFilter(f.id as any)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                         caseFilter === f.id
-                          ? 'bg-white dark:bg-white/10 text-[#20c997] shadow-sm'
+                          ? 'bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-sm'
                           : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
@@ -1429,7 +1555,7 @@ export default function App() {
                     value={caseSearch}
                     onChange={(e) => setCaseSearch(e.target.value)}
                     placeholder="Signal ID yoki sabab bo'yicha qidiruv..."
-                    className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#20c997]"
+                    className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-white/30"
                   />
                 </div>
               </div>
@@ -1514,7 +1640,7 @@ export default function App() {
         {/* ---------------- SECTION 7: SUBMISSION ---------------- */}
         {activeTab === 'submission' && (
           <div className="space-y-8 animate-fadeIn">
-            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] p-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-[20px] border-2 border-[#f1f2f4] dark:border-white/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] hover:border-[#20c997]/30 transition-all duration-300 p-6">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <CheckCircle2 className="w-5 h-5" strokeWidth={1.8} />
