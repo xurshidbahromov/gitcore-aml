@@ -66,7 +66,6 @@ import {
 import {
   SpotlightCard,
   CountUp,
-  ShinyText,
   DecryptedText,
   AnimatedTabs,
   type TabItem,
@@ -210,87 +209,60 @@ export default function App() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/5 dark:bg-emerald-400/4 blur-[150px]" />
       </div>
 
-      {/* Main Sticky Top Header Area (Top Banner + Navigation Cockpit) */}
-      <header className="sticky top-0 z-40 transition-all shadow-sm">
-        {/* Top Banner - iNazorat Signature Frosted Glass Ribbon */}
-        <div className="bg-white/90 dark:bg-[#0b0f19]/90 backdrop-blur-xl border-b border-[#f1f2f4] dark:border-white/5 px-4 sm:px-6 py-1.5 flex items-center justify-between text-xs transition-colors duration-300">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#20c997] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#20c997]"></span>
-            </span>
-            <ShinyText
-              text="WIUT HACKATHON 2026 · FINTECH & AI IN FINANCE"
-              speed={4}
-              className="font-bold text-slate-800 dark:text-emerald-400 uppercase tracking-wider text-[11px]"
-            />
-            <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-            <span className="text-slate-500 dark:text-slate-400 hidden sm:inline text-[11px]">
-              Elimination Task: AML Alert Prioritization
-            </span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#20c997]" />
-              <span>Ensemble: XGB + CAT + LGB</span>
-            </div>
-            <span className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold">
-              Team: {summaryStats.teamName} ({summaryStats.teamId})
-            </span>
-          </div>
-        </div>
-
-        {/* Main Glass Cockpit Header (iNazorat Signature Navigation) */}
-        <div className="bg-white/90 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/5 transition-all">
+      {/* Unified Minimalist iNazorat-style Glass Header */}
+      <header className="sticky top-0 z-40 bg-white/75 dark:bg-[#0b0f19]/75 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/[0.06] transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 gap-3">
             
-            {/* Left: iNazorat-style Minimalist Wordmark Logo with Attached Double Chevron Growth Arrow */}
-            <div 
-              className="relative flex items-center pr-3 cursor-pointer group select-none flex-shrink-0"
-              onClick={() => setLogoKey(k => k + 1)}
-              onMouseEnter={() => setLogoKey(k => k + 1)}
-              title="Kursor keltiring: Cyber Decrypt animatsiyasi"
-            >
-              <div className="relative inline-flex items-center">
-                <span 
-                  className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[28px] sm:text-[34px] transition-colors"
-                  style={{ fontFamily: "'Quicksand', sans-serif" }}
-                >
-                  <DecryptedText
-                    text="gitcore"
-                    trigger={logoKey}
-                    speed={28}
-                    maxIterations={12}
-                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 inline"
-                    encryptedClassName="text-[#20c997] font-quicksand drop-shadow-[0_0_6px_rgba(32,201,151,0.5)]"
-                  />
-                </span>
+            {/* Left: iNazorat-style Wordmark Logo & Live AUC Status */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div 
+                className="relative flex items-center pr-3 cursor-pointer group select-none"
+                onClick={() => setLogoKey(k => k + 1)}
+                onMouseEnter={() => setLogoKey(k => k + 1)}
+                title="Kursor keltiring: Cyber Decrypt animatsiyasi"
+              >
+                <div className="relative inline-flex items-center">
+                  <span 
+                    className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 leading-none text-[26px] sm:text-[32px] transition-colors"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    <DecryptedText
+                      text="gitcore"
+                      trigger={logoKey}
+                      speed={28}
+                      maxIterations={12}
+                      className="font-bold font-quicksand tracking-tight text-slate-800 dark:text-slate-100 inline"
+                      encryptedClassName="text-[#20c997] font-quicksand drop-shadow-[0_0_6px_rgba(32,201,151,0.5)]"
+                    />
+                  </span>
 
-                {/* Double Chevron Growth Arrow (iNazorat Signature Elevate mark) */}
-                <svg 
-                  className="text-[#20c997] absolute transition-all duration-300 ease-in-out drop-shadow-[0_2px_8px_rgba(32,201,151,0.35)] w-[18px] h-[18px] -top-[4px] -right-[12px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="3.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <path d="M11 5 H 19 V 13" />
-                  <path d="M5 11 H 13 V 19" />
-                </svg>
+                  {/* Double Chevron Growth Arrow (iNazorat Signature Elevate mark) */}
+                  <svg 
+                    className="text-[#20c997] absolute transition-all duration-300 ease-in-out drop-shadow-[0_2px_8px_rgba(32,201,151,0.35)] w-[17px] h-[17px] -top-[4px] -right-[12px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <path d="M11 5 H 19 V 13" />
+                    <path d="M5 11 H 13 V 19" />
+                  </svg>
+                </div>
+
+                <span className="ml-5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tracking-wide">
+                  AML
+                </span>
               </div>
 
-              <span className="ml-5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tracking-wide">
-                AML
-              </span>
-
-              <span className="hidden xl:inline-flex items-center gap-1.5 ml-2.5 text-[10px] bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 px-2.5 py-0.5 rounded-full font-mono font-bold tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#20c997] animate-pulse" />
-                0.6246
-              </span>
+              <div className="hidden xl:flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-white/10 text-[11px] font-mono text-slate-400">
+                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#20c997] animate-pulse" />
+                  0.6246 AUC
+                </span>
+              </div>
             </div>
 
             {/* Center: React Bits Animated Floating Pill Navigation */}
@@ -306,16 +278,16 @@ export default function App() {
             <div className="flex items-center gap-2 flex-shrink-0">
               <button
                 onClick={() => setActiveTab('submission')}
-                className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full text-xs font-mono font-bold transition-all active:scale-95 shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/35"
+                className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] transition-all active:scale-95 shadow-xs"
                 title="Rasmiy Submission Tekshiruvi"
               >
-                <Award className="w-3.5 h-3.5" />
+                <Award className="w-3.5 h-3.5 text-[#20c997]" />
                 <span>team_98F12CFB.csv</span>
               </button>
 
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="p-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-600 dark:text-slate-300 transition-all active:scale-95 border border-slate-200/80 dark:border-white/10"
+                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-amber-400 transition-all duration-200 active:scale-95 border border-transparent hover:border-slate-200 dark:hover:border-white/10"
                 title={isDark ? "Yorug' rejimga o'tish" : "Qorong'i rejimga o'tish"}
               >
                 {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
@@ -323,7 +295,6 @@ export default function App() {
             </div>
 
           </div>
-        </div>
         </div>
       </header>
 
@@ -1887,18 +1858,26 @@ export default function App() {
 
       </main>
 
-      {/* Glassy Footer */}
-      <footer className="border-t border-slate-200/80 dark:border-white/5 bg-white/60 dark:bg-[#080d19]/80 backdrop-blur-xl py-6 px-6 text-center text-xs text-slate-500 dark:text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 font-medium">
-            <span className="font-bold text-slate-900 dark:text-white">gitcore</span>
-            <span>•</span>
-            <span>WIUT Hackathon 2026</span>
-            <span>•</span>
-            <span>FinTech & AI in Finance</span>
+      {/* Ultra-Minimalist iNazorat-style StatusBar */}
+      <footer className="border-t border-slate-200/60 dark:border-white/[0.05] bg-slate-50/40 dark:bg-transparent backdrop-blur-md py-4 px-6 text-xs text-slate-500 dark:text-slate-400 transition-colors">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px]">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#20c997] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#20c997]"></span>
+            </span>
+            <span className="font-bold text-slate-800 dark:text-slate-200 font-sans">gitcore</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span>WIUT Hackathon 2026 · FinTech & AI</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span>10,015,238 tranzaksiya</span>
           </div>
-          <div className="font-mono text-xs">
-            Model ROC-AUC: <span className="font-bold text-emerald-600 dark:text-emerald-400">{modelMetricsData.ensembleAUC.toFixed(5)}</span> • Team ID: {summaryStats.teamId}
+          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+            <span>Ensemble: XGB + CAT + LGB</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">AUC {modelMetricsData.ensembleAUC.toFixed(5)}</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span className="text-slate-400 dark:text-slate-500">ID: {summaryStats.teamId}</span>
           </div>
         </div>
       </footer>
