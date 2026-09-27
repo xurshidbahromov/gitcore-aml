@@ -4,7 +4,7 @@
 [![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.62461-20c997?style=for-the-badge&logo=apache-spark&logoColor=white)](https://hackathon.wiut.uz/)
 [![Team](https://img.shields.io/badge/Team-gitcore-blue?style=for-the-badge)](https://hackathon.wiut.uz/dashboard/)
 [![Team ID](https://img.shields.io/badge/ID-98F12CFB-violet?style=for-the-badge)](https://hackathon.wiut.uz/team/)
-[![Models](https://img.shields.io/badge/Ensemble-XGBoost%20%7C%20CatBoost%20%7C%20LightGBM-orange?style=for-the-badge)](https://github.com/)
+[![Models](https://img.shields.io/badge/Ensemble-XGBoost%20%7C%20CatBoost%20%7C%20LightGBM-orange?style=for-the-badge)](https://github.com/xurshidbahromov/gitcore-aml)
 [![License](https://img.shields.io/badge/License-Proprietary-gray?style=for-the-badge)](#)
 
 ---
