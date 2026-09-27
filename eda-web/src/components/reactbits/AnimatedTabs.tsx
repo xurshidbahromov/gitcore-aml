@@ -26,7 +26,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
 }) => {
   return (
     <nav
-      className={`relative flex items-center gap-1 p-1 bg-slate-200/50 dark:bg-white/[0.06] backdrop-blur-xl rounded-full border border-[#f1f2f4] dark:border-white/10 overflow-x-auto max-w-full ${className}`}
+      className={`relative flex items-center gap-1 p-1 bg-slate-200/40 dark:bg-white/[0.04] backdrop-blur-2xl rounded-full border border-slate-200/60 dark:border-white/10 overflow-x-auto max-w-full ${className}`}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {tabs.map((tab) => {
@@ -47,7 +47,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
             {isActive && (
               <motion.div
                 layoutId={`${layoutIdPrefix}-activePill`}
-                className="absolute inset-0 bg-white dark:bg-white/10 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] border border-slate-200/60 dark:border-white/10 -z-10"
+                className="absolute inset-0 bg-white/90 dark:bg-white/10 backdrop-blur-md rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] border border-slate-200/60 dark:border-white/10 -z-10"
                 transition={{ type: 'spring', stiffness: 480, damping: 36 }}
               />
             )}

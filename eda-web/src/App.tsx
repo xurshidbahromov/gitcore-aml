@@ -205,12 +205,13 @@ export default function App() {
     <div className="min-h-screen bg-slate-100 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300 relative overflow-x-clip selection:bg-emerald-500 selection:text-white">
       {/* Background Decorative Blur Gradients - EXACTLY matching iNazorat DashboardLayout */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50/50 to-emerald-50/10 dark:from-[#0b0f19] dark:via-[#0d1323] dark:to-[#0f172a]/20 transition-colors duration-300">
-        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-emerald-200/5 dark:bg-emerald-500/4 blur-[140px]" />
+        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full bg-emerald-200/10 dark:bg-emerald-500/[0.06] blur-[140px]" />
+        <div className="absolute -top-20 left-1/4 w-[36rem] h-48 rounded-full bg-[#20c997]/[0.08] dark:bg-[#20c997]/[0.05] blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-300/5 dark:bg-emerald-400/4 blur-[150px]" />
       </div>
 
       {/* Unified Minimalist iNazorat-style Glass Header - Fully Responsive */}
-      <header className="sticky top-0 z-40 bg-white/80 dark:bg-[#0b0f19]/80 backdrop-blur-2xl border-b border-[#f1f2f4] dark:border-white/[0.06] transition-all">
+      <header className="sticky top-0 z-40 bg-slate-50/40 dark:bg-[#0b0f19]/45 backdrop-blur-3xl border-b border-slate-200/60 dark:border-white/[0.06] transition-all shadow-[0_4px_30px_rgba(0,0,0,0.02)] dark:shadow-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Main Navigation Row */}
           <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
@@ -276,7 +277,7 @@ export default function App() {
                 className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-semibold transition-all active:scale-95 shadow-xs ${
                   activeTab === 'submission'
                     ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 ring-1 ring-emerald-500/30 shadow-[0_0_12px_rgba(32,201,151,0.2)]'
-                    : 'bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08]'
+                    : 'bg-white/60 dark:bg-white/[0.05] hover:bg-slate-100/80 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-xl'
                 }`}
                 title="Rasmiy Submission Tekshiruvi"
               >
